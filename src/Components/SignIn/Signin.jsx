@@ -5,7 +5,7 @@ import { EyeIcon } from '@heroicons/react/24/solid';
 import {loginSchema } from '../../schemas/schema';
 import  '../../style.css';
 import smile from '../../smile.svg';
-import axios from 'axios';
+import AuthUser from '../API/authorization';
 
 
 
@@ -16,10 +16,19 @@ import axios from 'axios';
 const Signin = () => {
     const [passwordShown, setPasswordShown] = useState(false);
     const [navigate, setNavigate] = useState(false);
-
+    const {http,setToken} = AuthUser();
+    
+    const onSubmit = (email,password) =>{
+        
+        http.post('/login',{email:email,password:password}).then((res)=>{
+            setToken(res.data.user,res.data.access_token);
+        })
+    }
+    
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
+    
     const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues: {
             email: "",
@@ -29,17 +38,18 @@ const Signin = () => {
         onSubmit,
     });
 
-    const onSubmit = async e => {
-        e.preventDefault();
+//     const onSubmit = async e => {
+//         e.preventDefault();
     
-        const {data} = await axios.post('token/', {
-            email, password
-        }, {withCredentials: true});
+//         const {data} = await axios.post('token/', {
+//             email, password
+//         }, {withCredentials: true});
     
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data['token']}`;
+//         axios.defaults.headers.common['Authorization'] = `Bearer ${data['token']}`;
     
-        setNavigate(true);
-    }
+//         setNavigate(true);
+//     }
+    
 if (navigate) {
         return <Navigate to="/"/>;
     }
