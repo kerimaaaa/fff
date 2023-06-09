@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link,Navigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { SignupSchema } from '../../schemas/schema';
@@ -7,30 +7,37 @@ import styles from './Signup.module.css';
 import '../../style.css';
 import smile from '../../smile.svg';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
+import ConfirmationPage from '../ConfirmationPage/ConfirmationPage';
+import AuthUser from '../API/authorization';
 
 
-const onSubmit = async (values) => {
-    try {
-        // Send request to the server to validate email address uniqueness
-        const response = await axios.post('http://35.242.202.126/api/register/email/', { email: values.email });
 
-        if (response.data.exists) {
-            // Show modal/error message if email address is already registered
-            <p>Email address is already registered. Please enter another email.</p>;
-        } else {
-            // Send confirmation email and redirect to additional information page
-            await axios.post('/api/send-confirmation-email', { email: values.email });
-            <p>На вашу почту " {values.email}" было отправлено письмо</p>;
-            // Redirect to additional information page
-            // replace '/additional-info' with the appropriate route
-            // history.push('/additional-info');
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
+// const onSubmit = async (values) => {
+//     try {
+//         const response = await axios.post('http://35.242.202.126/api/register/email/', { email: values.email });
+//         if (response.data.exists) {
+//             <p>Email address is already registered. Please enter another email.</p>;
+//         } else {
+
+//             await axios.post('http://35.242.202.126/api/register/email/', { email: values.email });
+//             <p>На вашу почту " {values.email}" было отправлено письмо</p>;
+
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// };
 
 const Signup = () => {
+    
+    const [openModal, setOpenModal] = useState(false)
+    const {http,setToken} = AuthUser();
+    const onSubmit= (email) =>{
+        // api call
+        http.post('/register/email/',{email:email}).then((res)=>{
+        console.log()
+        })
+    }
     const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues: {
             email: "",
@@ -38,11 +45,14 @@ const Signup = () => {
         validationSchema: SignupSchema,
         onSubmit,
     });
+    
+    
+  
 
     return (
         <div className={styles.Signup}>
 
-            <form onSubmit={handleSubmit} className='Signin_container'>
+            <form onSubmit={handleSubmit} className='Signin_container '>
                 <Link to="/" >
                     <button className={styles.arrow_left}>
                         <ArrowLongLeftIcon
@@ -70,10 +80,15 @@ const Signup = () => {
                 <button
                     disabled={isSubmitting}
                     type="submit"
-                    className='Signin_btn'>Далее</button>
+                    className='Signin_btn'
+                    onClick={() => {setOpenModal(true)}}
+                    >Далее</button>
+                 
             </form>
+            {openModal && <ConfirmationPage closeModal={setOpenModal} />}   
         </div >
     );
 };
 
 export default Signup;
+
