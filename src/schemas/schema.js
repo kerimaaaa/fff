@@ -38,12 +38,11 @@ export const loginSchema = yup.object().shape({
   email: yup
   .string()
   .min(2)
-  .matches(nameRules, { message: "Напишите свое имя правильно" })
   .email('Неверный логин или пароль').required('Электронная почта обязательна'),
   password: yup   
   .string()
-  .min(5)
-  .matches(passwordRules, { message: "Пожалуйста, создайте более надежный пароль" })
+  .min(8)
+  .matches(passwordRules, { message: "Неверный логин или пароль"" })
   .required("Обязательно")
 });
 
