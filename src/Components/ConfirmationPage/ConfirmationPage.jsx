@@ -1,13 +1,17 @@
 import React from 'react';
 import smile from '../../smile.svg';
-import styles from './Confirmation.module.css'
-import  '../../style.css';
-const ConfirmationPage = () => {
+import './Confirmation.css'
+import '../../style.css';
+const ConfirmationPage = ({closeModal}) => {
   return (
-    <div className={styles.confirm_page}>
-      <img src={smile} alt="smile" />
-      <p>На вашу почту  было отправлено письмо</p>
-      <button className={styles.confirm_btn}>Закрыть</button>
+    <div  className='confirm_page' >
+      <div className='confirm_page_content' >
+        <img src={smile} alt="smile" />
+        <p>На вашу почту "{ }" было отправлено письмо</p>
+        <button className='confirm_btn' 
+        onClick={() => closeModal(false)}
+        >Закрыть</button>
+      </div>
     </div>
   );
 };
