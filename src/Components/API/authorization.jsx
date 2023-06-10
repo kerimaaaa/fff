@@ -1,7 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { baseURL } from './api';
 
 export default function AuthUser(){
     const navigate = useNavigate();
@@ -36,14 +34,6 @@ export default function AuthUser(){
         sessionStorage.clear();
         navigate('/login');
     }
-
-    const http = axios.create({
-        baseURL:baseURL,
-        headers:{
-            "Content-type" : "application/json",
-            "Authorization" : `Bearer ${token}`
-        }
-    });
     return {
         setToken:saveToken,
         token,
