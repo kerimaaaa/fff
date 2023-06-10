@@ -1,9 +1,13 @@
 .confirm_page {
-    width: 100vh;
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: blur(3px); 
+    padding: 15px 0;
+    border: solid 1px  #7e7e7e;
 }
 
 .confirm_btn {
@@ -26,9 +30,6 @@
     border-radius: 12px;
     background-color: #fff;
     position: absolute;
-    margin-right: 500px;
-
-
 }
 
 .confirm_btn:hover {
