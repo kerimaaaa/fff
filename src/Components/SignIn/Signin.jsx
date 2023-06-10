@@ -5,7 +5,7 @@ import { EyeIcon } from '@heroicons/react/24/solid';
 import {loginSchema } from '../../schemas/schema';
 import  '../../style.css';
 import smile from '../../smile.svg';
-import AuthUser from '../API/authorization';
+
 
 
 
@@ -16,11 +16,11 @@ import AuthUser from '../API/authorization';
 const Signin = () => {
     const [passwordShown, setPasswordShown] = useState(false);
     const [navigate, setNavigate] = useState(false);
-    const {http,setToken} = AuthUser();
+
     
     const onSubmit = (email,password) =>{
         
-        http.post('/login',{email:email,password:password}).then((res)=>{
+        http.post('token/',{email:email,password:password}).then((res)=>{
             setToken(res.data.user,res.data.access_token);
         })
     }
