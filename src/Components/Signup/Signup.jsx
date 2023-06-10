@@ -8,35 +8,18 @@ import '../../style.css';
 import smile from '../../smile.svg';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
 import ConfirmationPage from '../ConfirmationPage/ConfirmationPage';
-import AuthUser from '../API/authorization';
+import { getApi } from '../../API/api';
 
 
 
-// const onSubmit = async (values) => {
-//     try {
-//         const response = await axios.post('http://35.242.202.126/api/register/email/', { email: values.email });
-//         if (response.data.exists) {
-//             <p>Email address is already registered. Please enter another email.</p>;
-//         } else {
 
-//             await axios.post('http://35.242.202.126/api/register/email/', { email: values.email });
-//             <p>На вашу почту " {values.email}" было отправлено письмо</p>;
-
-//         }
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
 
 const Signup = () => {
-    
     const [openModal, setOpenModal] = useState(false)
-    const {http,setToken} = AuthUser();
-    const onSubmit= (email) =>{
-        // api call
-        http.post('/register/email/',{email:email}).then((res)=>{
-        console.log()
-        })
+    
+    const onSubmit = (data) => {
+        getApi.registerEmail(data.email).then(() => {
+        console.log(data.email)})
     }
     const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues: {
