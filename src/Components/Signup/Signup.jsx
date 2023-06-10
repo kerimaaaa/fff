@@ -8,7 +8,7 @@ import '../../style.css';
 import smile from '../../smile.svg';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
 import ConfirmationPage from '../ConfirmationPage/ConfirmationPage';
-import { getApi } from '../../API/api';
+import { getApi } from '../API/api';
 
 
 
