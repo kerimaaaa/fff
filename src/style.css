@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 100px 0;
 }
 
 .Signin_container {
@@ -25,7 +26,12 @@
     background-color: #fff;
     border: 50px;
     border-radius: 26px;
-    margin-top: 100px;
+}
+.modal_window {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .Signin_input {
